@@ -1,39 +1,43 @@
 # -*- coding: UTF-8 -*-
 import xlsxwriter
-import datetime
 import time
 
-# 现在
-# startTime=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-# print startTime
-startTime1 = time.time()
-# print startTime1
 
-# 创建一个Excel文件
-workbook = xlsxwriter.Workbook('C:\Users\Administrator\Desktop\80s.xlsx')
-# 创建一个sheet
-worksheet = workbook.add_worksheet()
+def run():
+    # print startTime
+    start_time = time.time()
+    # print startTime1
 
-# 表格title
-title = [U'名称', U'副标题']
-# title 写入Excel
-worksheet.write_row('A1', title)
+    # 创建一个Excel文件
+    workbook = xlsxwriter.Workbook('C:\\Users\\Administrator\\Desktop\\80s.xlsx')
+    # 创建一个sheet
+    worksheet = workbook.add_worksheet(U'80s视频资源')
 
-for i in range(1, 100):
-    num0 = bytes(i+1)
-    num = bytes(i)
+    # 表格title
+    title = ['video_name', 'image_url', 'video_url']
+    # title 写入Excel,写入行数据
+    worksheet.write_row('A1', title)
+
+    for i in range(1, 100):
+        data = [u'学生' + str(i), i, i, ]
+        write_excel_by_row(i, data, worksheet)
+
+    workbook.close()
+
+    end_time = time.time()
+    # print endTime1
+
+    print end_time - start_time
+
+
+def write_excel_by_row(index, data, worksheet):
+    num0 = bytes(index + 1)
+    # 生成行号
     row = 'A' + num0
-    data = [u'学生'+num,num,]
     worksheet.write_row(row, data)
-    i += 1
+    index += 1
 
-workbook.close()
 
-# time.sleep(60)
-# endTime=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')#结束
-# print endTime
-
-endTime1 = time.time()
-# print endTime1
-
-print endTime1-startTime1
+if __name__ == '__main__':
+    # 开始处理006dy网站资源
+    run()
